@@ -1,4 +1,4 @@
-export const sideBarData = [
+export const SIDE_BAR_DATA = [
   {
     category: "Sorting Algorithms",
     prefixPath: "sorting-algorithms",
