@@ -3,57 +3,25 @@ import { useState } from "react";
 import styles from "./SideBar.module.css";
 import SideBarItem from "./SideBarItem";
 import SideSearch from "./SideSearch";
+import { sideBarData } from "../../utils/consts/sideBar.consts";
 
 function SideBar() {
-  const data = [
-    {
-      category: "Sorting Algorithms",
-      prefixPath: "sorting-algorithms",
-      algorithms: [
-        {
-          name: "Bubble Sort",
-          path: "bubble-sort",
-        },
-        {
-          name: "Merge Sort",
-          path: "merge-sort",
-        },
-        {
-          name: "Stalin Sort",
-          path: "stalin-sort",
-        },
-      ],
-    },
-
-    {
-      category: "Searching Algorithms",
-      prefixPath: "searching-algorithms",
-      algorithms: [
-        {
-          name: "Linear Search",
-          path: "linear-search",
-        },
-      ],
-    },
-  ];
-
-  const [searchData, setSearchData] = useState<string>("");
-  const pullInputData = (inputData: string) => {
-    setSearchData(inputData);
+  const [inputData, setInputData] = useState<string>("");
+  const handleInputChange = (input: string) => {
+    setInputData(input);
     return inputData;
   };
 
-  const filteredData = data.filter((algo) =>
-    algo.category.includes(searchData)
+  const filteredsideBarData = sideBarData.filter(
+    (algo) =>
+      algo.category.includes(inputData) ||
+      algo.algorithms.some((algorithm) => algorithm.name.includes(inputData))
   );
-
-  pullInputData;
 
   return (
     <div className={styles.sideBar}>
-      <SideSearch inputData={pullInputData} />
-
-      {filteredData.map((algoType, index) => (
+      <SideSearch inputData={handleInputChange} />
+      {filteredsideBarData.map((algoType, index) => (
         <SideBarItem
           prefixPath={algoType.prefixPath}
           key={algoType.category}

@@ -28,6 +28,7 @@
   padding-top: 10px;
   background-color: #2e2e2e;
   font-size: 0.9rem;
+  border-bottom: 1px solid white;
 }
 
 .singleLink {
@@ -41,4 +42,12 @@
 
 .singleLink:hover {
   background-color: #4d4d4d;
+}
+
+.itemWithoutPadding {
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

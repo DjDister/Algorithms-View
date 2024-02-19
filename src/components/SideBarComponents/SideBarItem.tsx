@@ -13,33 +13,29 @@ function SideBarItem({
   elementsArray: { name: string; path: string }[];
   prefixPath: string;
 }) {
-  const [itemOpened, setItemOpened] = useState<boolean>(false);
+  const [isItemOpened, setIsItemOpened] = useState<boolean>(false);
   return (
     <>
       <div
         className={styles.item}
         onClick={() => {
-          setItemOpened(!itemOpened);
+          setIsItemOpened((previous) => !previous);
         }}
         style={{
-          borderBottom: itemOpened ? "none" : "0.5px solid white",
-          backgroundColor: itemOpened ? "#2e2e2e" : "#393939",
+          borderBottom: isItemOpened ? "none" : "0.5px solid white",
+          backgroundColor: isItemOpened ? "#2e2e2e" : "#393939",
         }}
       >
         <div
           style={{
-            width: "95%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            backgroundColor: itemOpened ? "#2e2e2e" : "#393939",
+            backgroundColor: isItemOpened ? "#2e2e2e" : "#393939",
           }}
+          className={styles.itemWithoutPadding}
         >
           <div>{itemName}</div>
           <div
             style={{
-              transform: itemOpened ? "rotate(180deg)" : "rotate(90deg)",
+              transform: isItemOpened ? "rotate(180deg)" : "rotate(90deg)",
             }}
             className={styles.arrowBox}
           >
@@ -47,11 +43,8 @@ function SideBarItem({
           </div>
         </div>
       </div>
-      {itemOpened ? (
-        <div
-          style={{ borderBottom: "0.5px solid white" }}
-          className={styles.listOfElements}
-        >
+      {isItemOpened ? (
+        <div className={styles.listOfElements}>
           {elementsArray.map((element) => (
             <Link
               key={element.name}

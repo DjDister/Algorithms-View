@@ -22,3 +22,10 @@
   outline: none;
   background-color: #4d4d4d;
 }
+
+.wholeSearchBar {
+  width: 100%;
+  background-color: #393939;
+  border-bottom: 1px solid white;
+  display: flex;
+}
