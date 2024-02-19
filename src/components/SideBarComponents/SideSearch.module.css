@@ -1,0 +1,24 @@
+.sideSearch::placeholder {
+  color: #a6a6a6;
+}
+
+.sideSearch {
+  width: 90%;
+  width: calc(100% - 5px);
+  margin-left: 5px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background-color: #393939;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  color: #a6a6a6;
+}
+
+.sideSearch:focus {
+  border: none;
+  padding: 0;
+  outline: none;
+  background-color: #4d4d4d;
+}
