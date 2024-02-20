@@ -4,8 +4,9 @@
   left: 0;
   height: 100vh;
   overflow-y: auto;
-  width: 250px;
+  width: 249px;
   background-color: #393939;
+  border-right: 1px solid white;
 }
 
 .sideBar::-webkit-scrollbar {

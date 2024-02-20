@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./SideBar.module.css";
 import SideBarItem from "./SideBarItem";
 import SideSearch from "./SideSearch";
-import { sideBarData } from "../../utils/consts/sideBar.consts";
+import { SIDE_BAR_DATA } from "../../utils/consts/sideBar.consts";
 
 function SideBar() {
   const [inputData, setInputData] = useState<string>("");
@@ -12,7 +12,7 @@ function SideBar() {
     return inputData;
   };
 
-  const filteredsideBarData = sideBarData.filter(
+  const filteredsideBarData = SIDE_BAR_DATA.filter(
     (algo) =>
       algo.category.includes(inputData) ||
       algo.algorithms.some((algorithm) => algorithm.name.includes(inputData))

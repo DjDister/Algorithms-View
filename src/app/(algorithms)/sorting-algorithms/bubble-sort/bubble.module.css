@@ -1,0 +1,52 @@
+.bubblePage,
+.title,
+.graphContainer,
+.column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bubblePage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(100% - 250px);
+  height: 100vh;
+  flex-direction: column;
+}
+
+.title {
+  height: 10%;
+  width: 100%;
+  font-weight: bold;
+  font-size: 2rem;
+  background-color: #393939;
+  color: #a6a6a6;
+}
+
+.graphContainer {
+  height: 90%;
+  width: 100%;
+
+  background-color: rgb(187, 183, 183);
+}
+
+.graph {
+  height: 80%;
+  width: 80%;
+  background-color: #393939;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.column {
+  width: 40px;
+  background-color: whitesmoke;
+  border-radius: 5px 5px 0 0;
+  font-weight: bold;
+  color: #a6a6a6;
+}
