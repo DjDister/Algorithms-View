@@ -9,6 +9,7 @@ import DiceSvg from "../../../public/svg/DiceSvg";
 import SortSvg from "../../../public/svg/SortSvg";
 
 const initialArray = createRandomArray(20);
+
 export default function MergeVisualization() {
   const [chartData, setChartData] = useState(initialArray);
   const [leftCompared, setLeftCompared] = useState<number | null>(null);
@@ -30,9 +31,9 @@ export default function MergeVisualization() {
     const left: number[] = await mergeSort(array.slice(0, mid));
     const right: number[] = await mergeSort(array.slice(mid));
     const mergeResult = await merge(left, right);
-    // removeItemsAndSetThemSorted(mergeResult);
+
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(`mergeResult: `, mergeResult);
+
     return mergeResult;
   };
 
@@ -40,15 +41,13 @@ export default function MergeVisualization() {
     const result = [];
     let i = 0,
       j = 0;
-    console.log(`left: `, left);
-    console.log(`right: `, right);
     setLeftComparing(left);
     setRightComparing(right);
 
     while (i < left.length && j < right.length) {
-      console.log(`comparing left[i]: ${left[i]} and right[j]: ${right[j]}`);
       setLeftCompared(left[i]);
       setRightCompared(right[j]);
+
       if (left[i] < right[j]) {
         result.push(left[i]);
         i++;
@@ -56,9 +55,8 @@ export default function MergeVisualization() {
         result.push(right[j]);
         j++;
       }
-      console.log(`result with pushed`, result);
+
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      // setChartData([...result, ...left.slice(i), ...right.slice(j)]);
       removeItemsAndSetThemSorted(
         result.concat(left.slice(i)).concat(right.slice(j))
       );
