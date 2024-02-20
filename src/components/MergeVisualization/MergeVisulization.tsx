@@ -1,8 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import ChartVisualization from "./ChartVisualization/ChartVisualization";
-import { createRandomArray, shuffle } from "../utils/arrays-utils";
+import ChartVisualization from "../ChartVisualization/ChartVisualization";
+import { createRandomArray, shuffle } from "../../utils/arrays-utils";
+import Button from "../Button/Button";
+import styles from "./MergeVisualization.module.css";
+import DiceSvg from "../../../public/svg/DiceSvg";
+import SortSvg from "../../../public/svg/SortSvg";
 
 const initialArray = createRandomArray(20);
 export default function MergeVisualization() {
@@ -64,29 +68,29 @@ export default function MergeVisualization() {
   };
 
   const handleRandomize = async () => {
-    setChartData(() => {
-      const shuffled = shuffle(chartData);
-      console.log(`chartData: `, shuffled);
-      return shuffled;
-    });
+    setChartData(() => shuffle(chartData));
   };
 
   const handleSort = async () => {
-    console.log(`chartData: `, chartData);
-
-    const sorted = await mergeSort(chartData);
+    await mergeSort(chartData);
   };
 
   return (
     <div>
-      <button onClick={handleRandomize}>Shuffle</button>
-      <button onClick={handleSort}>Sort</button>
       <ChartVisualization
         array={chartData}
         highliteItems={[leftComparing, rightComparing]}
         highliteOne={leftCompared}
         highliteTwo={rightCompared}
       />
+      <div className={styles.btnsContainer}>
+        <Button onClick={handleRandomize} icon={<DiceSvg />}>
+          Shuffle
+        </Button>
+        <Button onClick={handleSort} icon={<SortSvg />}>
+          Sort
+        </Button>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ChartVisualization.module.css";
 import Image from "next/image";
 export default function ChartVisualization({
@@ -18,15 +18,32 @@ export default function ChartVisualization({
   const secondHighlite = highliteItems[1];
   const leftColor = "red";
   const rightColor = "blue";
+  const [bars, setBars] = useState<number[]>([]);
 
-  console.log(`highliting: `, highliteOne, highliteTwo);
+  useEffect(() => {
+    setBars(array);
+  }, [array]);
+
+  useEffect(() => {
+    if (highliteOne !== null && highliteTwo !== null) {
+      const updatedBars = [...bars];
+      const temp = updatedBars[highliteOne];
+      updatedBars[highliteOne] = updatedBars[highliteTwo];
+      updatedBars[highliteTwo] = temp;
+      setBars(updatedBars);
+    }
+  }, [highliteOne, highliteTwo]);
+
   return (
-    <div className={styles.chartContainer}>
+    <div
+      className={styles.chartContainer}
+      style={{ minHeight: `${Math.max(...array) * 10 + 20}px` }}
+    >
       {array.map((value, index) => (
         <div key={index}>
           {(highliteOne === value || highliteTwo === value) && (
             <Image
-              src="/svgs/ArrowDown.svg"
+              src="/svg/ArrowDown.svg"
               alt="arrow-down"
               width={20}
               height={20}
