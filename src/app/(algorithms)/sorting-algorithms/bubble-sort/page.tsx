@@ -15,7 +15,7 @@ export default function Page() {
   const [numbers, setNumbers] = useState<number[]>([]);
 
   useEffect(() => {
-    setNumbers(generateUniqueNumbers(10));
+    setNumbers(generateUniqueNumbers(15));
   }, []);
 
   return (

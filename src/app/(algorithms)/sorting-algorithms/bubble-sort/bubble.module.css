@@ -34,7 +34,7 @@
 
 .graph {
   height: 80%;
-  width: 80%;
+  width: 90%;
   background-color: #393939;
   border-radius: 5px;
   display: flex;
@@ -44,7 +44,8 @@
 }
 
 .column {
-  width: 40px;
+  width: 3%;
+  max-width: 35px;
   background-color: whitesmoke;
   border-radius: 5px 5px 0 0;
   font-weight: bold;
