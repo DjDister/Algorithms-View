@@ -12,75 +12,59 @@ const initialArray = createRandomArray(20);
 
 export default function MergeVisualization() {
   const [chartData, setChartData] = useState(initialArray);
-  const [leftCompared, setLeftCompared] = useState<number | null>(null);
-  const [rightCompared, setRightCompared] = useState<number | null>(null);
-  const [leftComparing, setLeftComparing] = useState<number[]>([]);
-  const [rightComparing, setRightComparing] = useState<number[]>([]);
 
-  const removeItemsAndSetThemSorted = (sorted: number[]) => {
-    setChartData((prev) => {
-      const newChartData = prev.filter((item) => !sorted.includes(item));
-      return [...sorted, ...newChartData];
-    });
-  };
-
-  const mergeSort = async (array: number[]): Promise<number[]> => {
-    if (array.length <= 1) return array;
-
-    const mid = Math.floor(array.length / 2);
-    const left: number[] = await mergeSort(array.slice(0, mid));
-    const right: number[] = await mergeSort(array.slice(mid));
-    const mergeResult = await merge(left, right);
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    return mergeResult;
-  };
-
-  const merge = async (left: number[], right: number[]) => {
-    const result = [];
-    let i = 0,
-      j = 0;
-    setLeftComparing(left);
-    setRightComparing(right);
-
-    while (i < left.length && j < right.length) {
-      setLeftCompared(left[i]);
-      setRightCompared(right[j]);
-
-      if (left[i] < right[j]) {
-        result.push(left[i]);
-        i++;
+  function* mergeSortGenerator(
+    array: number[],
+    tempArray: number[],
+    leftStart: number,
+    rightLimit: number
+  ): Generator<number[], void, void> {
+    if (rightLimit - leftStart <= 1) return;
+    let mid = Math.floor((leftStart + rightLimit) / 2);
+    yield* mergeSortGenerator(array, tempArray, leftStart, mid);
+    yield* mergeSortGenerator(array, tempArray, mid, rightLimit);
+    let i = leftStart,
+      left = leftStart,
+      right = mid;
+    while (left < mid && right < rightLimit) {
+      if (array[left] <= array[right]) {
+        tempArray[i++] = array[left++];
       } else {
-        result.push(right[j]);
-        j++;
+        tempArray[i++] = array[right++];
       }
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      removeItemsAndSetThemSorted(
-        result.concat(left.slice(i)).concat(right.slice(j))
-      );
+      yield array;
     }
+    while (left < mid) {
+      tempArray[i++] = array[left++];
+      yield array;
+    }
+    while (right < rightLimit) {
+      tempArray[i++] = array[right++];
+      yield array;
+    }
+    for (i = leftStart; i < rightLimit; i++) {
+      array[i] = tempArray[i];
+      yield array;
+    }
+  }
 
-    return result.concat(left.slice(i)).concat(right.slice(j));
+  const handleSort = async () => {
+    let array = [...chartData];
+    let tempArray = new Array(array.length).fill(0);
+    let generator = mergeSortGenerator(array, tempArray, 0, array.length);
+    for (let sortedArray of generator) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      setChartData(() => [...sortedArray]);
+    }
   };
 
   const handleRandomize = async () => {
     setChartData(() => shuffle(chartData));
   };
 
-  const handleSort = async () => {
-    await mergeSort(chartData);
-  };
-
   return (
     <div>
-      <ChartVisualization
-        array={chartData}
-        highliteItems={[leftComparing, rightComparing]}
-        highliteOne={leftCompared}
-        highliteTwo={rightCompared}
-      />
+      <ChartVisualization array={chartData} />
       <div className={styles.btnsContainer}>
         <Button onClick={handleRandomize} icon={<DiceSvg />}>
           Shuffle
