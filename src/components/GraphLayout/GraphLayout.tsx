@@ -26,12 +26,9 @@ function GraphLayout({
   };
 
   const handleSort = async () => {
-    setIsSorting(true);
     onSort();
-    setIsSorting(false);
   };
 
-  const [isSorting, setIsSorting] = useState(false);
   return (
     <div className={styles.GraphLayout}>
       <div className={styles.title}>{title}</div>
@@ -66,7 +63,7 @@ function GraphLayout({
       <div className={styles.buttonSection}>
         <Button
           onClick={() => {
-            !isSorting && isAbleToSort ? handleRandomize() : () => {};
+            isAbleToSort ? handleRandomize() : () => {};
           }}
           icon={<DiceSvg />}
         >

@@ -1,14 +1,14 @@
 "use client";
 import GraphLayout from "@/components/GraphLayout/GraphLayout";
-import { shuffle } from "@/utils/arrays-utils";
+import { createRandomArray, shuffle } from "@/utils/arrays-utils";
 import { useEffect, useState } from "react";
+
+const initialArray = createRandomArray(15, 10, 100);
 
 export default function Page() {
   const [isAbleToSort, setIsAbleToSort] = useState(true);
 
-  const [array, setArray] = useState<number[]>([
-    10, 20, 30, 40, 50, 60, 70, 80, 90, 99, 75, 12, 13, 14, 100,
-  ]);
+  const [array, setArray] = useState<number[]>(initialArray);
 
   // const bubbleSort = async () => {
   //   setIsAbleToSort(false);
@@ -34,28 +34,26 @@ export default function Page() {
   //   setIsAbleToSort(true);
   //   return sortedArray;
   // };
-  const bubbleSort = async () => {
-    setIsAbleToSort(false);
-    let sortedArray = [...array];
-    const n = sortedArray.length;
-    let swapped;
-
-    do {
+  const bubbleSort = async (arr: number[]) => {
+    const n = arr.length;
+    var i, j, temp;
+    var swapped;
+    for (i = 0; i < n - 1; i++) {
       swapped = false;
-      for (let i = 0; i < n - 1; i++) {
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        if (sortedArray[i] > sortedArray[i + 1]) {
-          const temp = sortedArray[i];
-          sortedArray[i] = sortedArray[i + 1];
-          sortedArray[i + 1] = temp;
+      for (j = 0; j < n - i - 1; j++) {
+        if (arr[j] > arr[j + 1]) {
+          temp = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = temp;
           swapped = true;
+
+          setArray(() => [...arr]);
+          await new Promise((resolve) => setTimeout(resolve, 100));
         }
       }
-      setArray(sortedArray);
-    } while (swapped);
 
-    setIsAbleToSort(true);
-    return sortedArray;
+      if (swapped == false) break;
+    }
   };
 
   return (
@@ -63,7 +61,7 @@ export default function Page() {
       sorrtingArray={array}
       title="Bubble Sort"
       onRandomize={() => setArray(shuffle(array))}
-      onSort={bubbleSort}
+      onSort={() => bubbleSort(array)}
       isAbleToSort={isAbleToSort}
     />
   );
