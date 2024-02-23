@@ -28,6 +28,10 @@
   font-size: 2rem;
 }
 
+.titleName {
+  cursor: pointer;
+}
+
 .graphSection {
   height: 75%;
   background-color: #aca9bb;
@@ -49,7 +53,14 @@
   border-radius: 5px 5px 0px 0px;
   font-weight: bold;
   color: #aca9bb;
-  /* opacity: 1; */
+  position: relative;
+}
+
+.arrowDownColumn {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .buttonSection {

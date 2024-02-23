@@ -1,46 +1,33 @@
 "use client";
 import GraphLayout from "@/components/GraphLayout/GraphLayout";
 import { createRandomArray, shuffle } from "@/utils/arrays-utils";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const initialArray = createRandomArray(15, 10, 100);
 
 export default function Page() {
   const [isAbleToSort, setIsAbleToSort] = useState(true);
-
   const [array, setArray] = useState<number[]>(initialArray);
+  const [chosenColumn, setChosenColumn] = useState<number>();
+  const [comparingColumn, setComparingColumn] = useState<number>();
+  const [sortingSpeed, setSortingSpeed] = useState<number>(100);
 
-  // const bubbleSort = async () => {
-  //   setIsAbleToSort(false);
-  //   const sortedArray = [...array];
-  //   const n = sortedArray.length;
-  //   let swapped;
+  const pullSortingSpeed = (sortingSpeed: number) => {
+    setSortingSpeed(sortingSpeed * 5);
+  };
 
-  //   do {
-  //     swapped = false;
-  //     for (let i = 0; i < n - 1; i++) {
-  //       await new Promise((resolve) => setTimeout(resolve, 1000));
-  //       console.log("TY KURWO");
-  //       if (sortedArray[i] > sortedArray[i + 1]) {
-  //         const temp = sortedArray[i];
-  //         sortedArray[i] = sortedArray[i + 1];
-  //         sortedArray[i + 1] = temp;
-  //         swapped = true;
-  //       }
-  //       setArray(sortedArray);
-  //     }
-  //   } while (swapped);
-
-  //   setIsAbleToSort(true);
-  //   return sortedArray;
-  // };
   const bubbleSort = async (arr: number[]) => {
     const n = arr.length;
     var i, j, temp;
     var swapped;
+
+    setIsAbleToSort(false);
     for (i = 0; i < n - 1; i++) {
       swapped = false;
+      setComparingColumn(i);
       for (j = 0; j < n - i - 1; j++) {
+        setChosenColumn(j + 1);
+
         if (arr[j] > arr[j + 1]) {
           temp = arr[j];
           arr[j] = arr[j + 1];
@@ -48,12 +35,17 @@ export default function Page() {
           swapped = true;
 
           setArray(() => [...arr]);
-          await new Promise((resolve) => setTimeout(resolve, 100));
+          await new Promise((resolve) =>
+            setTimeout(resolve, 20000 / sortingSpeed)
+          );
         }
       }
 
       if (swapped == false) break;
     }
+    setIsAbleToSort(true);
+    setChosenColumn(-10);
+    setComparingColumn(-10);
   };
 
   return (
@@ -63,6 +55,9 @@ export default function Page() {
       onRandomize={() => setArray(shuffle(array))}
       onSort={() => bubbleSort(array)}
       isAbleToSort={isAbleToSort}
+      chosenColumn={chosenColumn}
+      comparingColumn={comparingColumn}
+      sortingSpeedFunction={pullSortingSpeed}
     />
   );
 }
