@@ -10,12 +10,12 @@ export default function ChartVisualization({
   highliteTwo,
 }: {
   array: number[];
-  highliteItems: number[][];
-  highliteOne: number | null;
-  highliteTwo: number | null;
+  highliteItems?: number[][];
+  highliteOne?: number | null;
+  highliteTwo?: number | null;
 }) {
-  const firstHighlite = highliteItems[0];
-  const secondHighlite = highliteItems[1];
+  const firstHighlite = highliteItems?.at(0);
+  const secondHighlite = highliteItems?.at(1);
   const leftColor = "red";
   const rightColor = "blue";
   const [bars, setBars] = useState<number[]>([]);
@@ -25,7 +25,7 @@ export default function ChartVisualization({
   }, [array]);
 
   useEffect(() => {
-    if (highliteOne !== null && highliteTwo !== null) {
+    if (highliteOne && highliteTwo) {
       const updatedBars = [...bars];
       const temp = updatedBars[highliteOne];
       updatedBars[highliteOne] = updatedBars[highliteTwo];
@@ -53,9 +53,9 @@ export default function ChartVisualization({
             className={styles.chartBar}
             style={{
               height: `${value * 10}px`,
-              backgroundColor: firstHighlite.includes(value)
+              backgroundColor: firstHighlite?.includes(value)
                 ? leftColor
-                : secondHighlite.includes(value)
+                : secondHighlite?.includes(value)
                 ? rightColor
                 : "grey",
             }}
