@@ -28,4 +28,15 @@ export const SIDE_BAR_DATA = [
       },
     ],
   },
+
+  {
+    category: "Math Algorithms",
+    prefixPath: "math-algorithms",
+    algorithms: [
+      {
+        name: "Fibonacci Sequence",
+        path: "fibonacci-sequence",
+      },
+    ],
+  },
 ];

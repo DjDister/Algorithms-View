@@ -18,6 +18,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  z-index: 2;
 }
 .title {
   height: 10%;
@@ -26,11 +27,10 @@
   color: #a6a6a6;
   font-weight: bold;
   font-size: 2rem;
+  z-index: 2;
+  position: relative;
 }
 
-.titleName {
-  cursor: pointer;
-}
 
 .graphSection {
   height: 75%;
@@ -38,6 +38,7 @@
   background-color: #9593a3;
 
   border-radius: 0px 0px 15px 15px;
+  position: relative;
 }
 
 .graph {
@@ -54,6 +55,8 @@
   font-weight: bold;
   color: #aca9bb;
   position: relative;
+  max-height: "90%";
+  background-color: "rgb(243, 239, 239)";
 }
 
 .arrowDownColumn {
@@ -67,4 +70,11 @@
   height: 15%;
   gap: 15px;
   background-color: #f2ecff;
+}
+
+.backgroundImage{
+  z-index: -1;
+  pointer-events: none;
+  object-fit: cover;
+  object-position: center;
 }

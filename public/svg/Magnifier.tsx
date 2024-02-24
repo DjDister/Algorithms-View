@@ -5,15 +5,15 @@ function Magnifier({ width = 50 }: { width: number }) {
       style={{ paddingLeft: "10px", paddingRight: "10px" }}
       fill="#a6a6a6"
       viewBox="0 0 32 32"
-      enable-background="new 0 0 32 32"
+      enableBackground="new 0 0 32 32"
       id="Glyph"
       version="1.1"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         <path

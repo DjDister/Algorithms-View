@@ -1,4 +1,4 @@
-export const BASE_SORTING_SPEED = 50;
+export const BASE_SORTING_SPEED = 500;
 
 export const SORTING_MULTIPLIER = 10;
 

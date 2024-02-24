@@ -9,8 +9,8 @@ function RangeInput({
   const [sliderValue, setSliderValue] = useState<number>(50);
 
   const handleSliderChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSliderValue(Number(event.target.value));
-    sliderValueFunction(sliderValue);
+    setSliderValue(event.target.valueAsNumber);
+    sliderValueFunction(event.target.valueAsNumber);
   };
 
   return (
