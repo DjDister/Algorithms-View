@@ -3,6 +3,7 @@ import GraphLayout from "@/components/GraphLayout/GraphLayout";
 import { createRandomArray, shuffle } from "@/utils/arrays-utils";
 import {
   BASE_SORTING_SPEED,
+  BASE_SORTING_TIMEOUT,
   SORTING_MULTIPLIER,
 } from "@/utils/consts/sorting.consts";
 import { useState } from "react";
@@ -40,7 +41,7 @@ export default function Page() {
 
           setArray(() => [...arr]);
           await new Promise((resolve) =>
-            setTimeout(resolve, 20000 / sortingSpeed)
+            setTimeout(resolve, BASE_SORTING_TIMEOUT / sortingSpeed)
           );
         }
       }

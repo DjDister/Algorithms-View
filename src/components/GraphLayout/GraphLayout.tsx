@@ -5,8 +5,8 @@ import styles from "./GraphLayout.module.css";
 import RangeInput from "../RangeInput/RangeInput";
 import DiceSvg from "../../../public/svg/DiceSvg";
 import SortSvg from "../../../public/svg/SortSvg";
-import Stalin from "../../../public/Stalin.jpg";
-import Image from "next/image";
+import { StaticImageData } from "next/image";
+import ArrowDown from "../../../public/svg/ArrowDown";
 function GraphLayout({
   sorrtingArray,
   title,
@@ -16,7 +16,11 @@ function GraphLayout({
   chosenColumn,
   comparingColumn,
   sortingSpeedFunction,
-  stalinKills,
+  stalinArray,
+  backgroundImage,
+  customTextColor,
+  customColumnColor,
+  arrowColor,
 }: {
   sorrtingArray: number[];
   title: string;
@@ -26,31 +30,37 @@ function GraphLayout({
   chosenColumn?: number | number[];
   comparingColumn?: number;
   sortingSpeedFunction: (sortingSpeed: number) => void;
-  stalinKills?: number[];
+  stalinArray?: number[];
+  backgroundImage?: StaticImageData;
+  customTextColor?: string;
+  customColumnColor?: string;
+  arrowColor?: string;
 }) {
+  const [sliderValue, setSliderValue] = useState<number>(50);
+  const [isCustomStyleActivated, setIsCustomStyleActivated] =
+    useState<boolean>(false);
+
   const handleRandomize = async () => {
-    onRandomize();
+    isAbleToSort ? onRandomize() : null;
   };
 
   const handleSort = async () => {
-    onSort();
+    isAbleToSort ? onSort() : null;
   };
-
-  const [sliderValue, setSliderValue] = useState<number>(50);
 
   const pullSliderValueFromChild = (sliderValue: number) => {
     setSliderValue(sliderValue);
   };
+  const titleBoxFunction = () => {
+    backgroundImage ? setIsCustomStyleActivated((prev) => !prev) : null;
+  };
   sortingSpeedFunction(sliderValue);
-  const [isStalinActivated, setIsStalinActivated] = useState<boolean>(false);
   return (
     <div className={styles.GraphLayout}>
       <div className={styles.title}>
         <div
           onClick={() => {
-            title === "Stalin Sort"
-              ? setIsStalinActivated((prevComrad) => !prevComrad)
-              : null;
+            titleBoxFunction();
           }}
           className={styles.titleName}
         >
@@ -61,13 +71,13 @@ function GraphLayout({
         className={styles.graphSection}
         style={{
           backgroundImage:
-            title === "Stalin Sort" && isStalinActivated
-              ? `url(${Stalin.src})`
+            backgroundImage && isCustomStyleActivated
+              ? `url(${backgroundImage.src})`
               : "",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPositionY: "top",
-          opacity: title === "Stalin Sort" ? 0.6 : 1,
+          opacity: isCustomStyleActivated ? 0.6 : 1,
         }}
       >
         <div className={styles.graph}>
@@ -78,32 +88,24 @@ function GraphLayout({
               style={{
                 height: `${number * 4}px`,
                 maxHeight: "90%",
-                backgroundColor:
-                  title === "Stalin Sort"
-                    ? stalinKills?.includes(number)
-                      ? "black"
-                      : isStalinActivated
-                      ? "red"
-                      : "rgb(243, 239, 239)"
-                    : index === chosenColumn
-                    ? "#baffc9"
-                    : index === comparingColumn
-                    ? "#ffb3ba"
-                    : "rgb(243, 239, 239)",
-                color:
-                  title === "Stalin Sort" && isStalinActivated
-                    ? "yellow"
-                    : "#aca9bb",
+                backgroundColor: stalinArray
+                  ? stalinArray?.includes(number)
+                    ? "#685c64"
+                    : isCustomStyleActivated
+                    ? customColumnColor
+                    : "rgb(243, 239, 239)"
+                  : index === chosenColumn
+                  ? "#baffc9"
+                  : index === comparingColumn
+                  ? "#ffb3ba"
+                  : "rgb(243, 239, 239)",
+                color: isCustomStyleActivated ? customTextColor : "#aca9bb",
               }}
             >
               {index === chosenColumn || index === comparingColumn ? (
-                <Image
-                  src="/svg/ArrowDown.svg"
-                  alt="arrow-down"
-                  width={20}
-                  height={20}
-                  className={styles.arrowDownColumn}
-                />
+                <div className={styles.arrowDownColumn}>
+                  <ArrowDown color={arrowColor} />
+                </div>
               ) : null}
 
               {number !== 0 ? number : null}
@@ -114,7 +116,7 @@ function GraphLayout({
       <div className={styles.buttonSection}>
         <Button
           onClick={() => {
-            isAbleToSort ? handleRandomize() : () => {};
+            handleRandomize();
           }}
           icon={<DiceSvg />}
         >
@@ -123,7 +125,7 @@ function GraphLayout({
         <Button
           onClick={() => {
             {
-              isAbleToSort ? handleSort() : () => {};
+              handleSort();
             }
           }}
           icon={<SortSvg />}

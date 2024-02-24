@@ -1,8 +1,13 @@
 "use client";
 import GraphLayout from "@/components/GraphLayout/GraphLayout";
 import { createRandomArray, shuffle } from "@/utils/arrays-utils";
-import { BASE_SORTING_SPEED } from "@/utils/consts/sorting.consts";
+import {
+  BASE_SORTING_SPEED,
+  BASE_SORTING_TIMEOUT,
+  SORTING_MULTIPLIER,
+} from "@/utils/consts/sorting.consts";
 import { useState } from "react";
+import Stalin from "../../../../../public/Stalin.jpg";
 
 const initialArray = createRandomArray(15, 10, 100);
 const stalinKills: number[] = [];
@@ -11,6 +16,7 @@ export default function Page() {
   const [isAbleToSort, setIsAbleToSort] = useState(true);
   const [array, setArray] = useState<number[]>(initialArray);
   const [chosenColumn, setChosenColumn] = useState(-10);
+  const [sortingSpeed, setSortingSpeed] = useState<number>(BASE_SORTING_SPEED);
 
   const stalinSort = async (array: number[]) => {
     let comradsArray = [array[0]];
@@ -22,7 +28,9 @@ export default function Page() {
         stalinKills.push(array[i]);
       }
       setChosenColumn(i);
-      await new Promise((resolve) => setTimeout(resolve, 30000 / sortingSpeed));
+      await new Promise((resolve) =>
+        setTimeout(resolve, BASE_SORTING_TIMEOUT / sortingSpeed)
+      );
     }
 
     setIsAbleToSort(true);
@@ -32,10 +40,8 @@ export default function Page() {
     return comradsArray;
   };
 
-  const [sortingSpeed, setSortingSpeed] = useState<number>(BASE_SORTING_SPEED);
-
   const pullSortingSpeed = (sortingSpeed: number) => {
-    setSortingSpeed(sortingSpeed * 5);
+    setSortingSpeed(sortingSpeed * SORTING_MULTIPLIER);
   };
 
   return (
@@ -46,8 +52,11 @@ export default function Page() {
       onSort={() => stalinSort(array)}
       title="Stalin Sort"
       isAbleToSort={isAbleToSort}
-      stalinKills={stalinKills}
+      stalinArray={stalinKills}
       chosenColumn={chosenColumn}
+      backgroundImage={Stalin}
+      customTextColor="yellow"
+      customColumnColor="red"
     />
   );
 }
