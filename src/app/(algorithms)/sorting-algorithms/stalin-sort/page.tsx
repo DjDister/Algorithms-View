@@ -1,6 +1,7 @@
 "use client";
 import GraphLayout from "@/components/GraphLayout/GraphLayout";
 import { createRandomArray, shuffle } from "@/utils/arrays-utils";
+import { BASE_SORTING_SPEED } from "@/utils/consts/sorting.consts";
 import { useState } from "react";
 
 const initialArray = createRandomArray(15, 10, 100);
@@ -31,7 +32,7 @@ export default function Page() {
     return comradsArray;
   };
 
-  const [sortingSpeed, setSortingSpeed] = useState<number>(50);
+  const [sortingSpeed, setSortingSpeed] = useState<number>(BASE_SORTING_SPEED);
 
   const pullSortingSpeed = (sortingSpeed: number) => {
     setSortingSpeed(sortingSpeed * 5);

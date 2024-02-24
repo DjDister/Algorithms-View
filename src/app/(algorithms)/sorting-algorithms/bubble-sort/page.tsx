@@ -1,6 +1,10 @@
 "use client";
 import GraphLayout from "@/components/GraphLayout/GraphLayout";
 import { createRandomArray, shuffle } from "@/utils/arrays-utils";
+import {
+  BASE_SORTING_SPEED,
+  SORTING_MULTIPLIER,
+} from "@/utils/consts/sorting.consts";
 import { useState } from "react";
 
 const initialArray = createRandomArray(15, 10, 100);
@@ -10,10 +14,10 @@ export default function Page() {
   const [array, setArray] = useState<number[]>(initialArray);
   const [chosenColumn, setChosenColumn] = useState<number>();
   const [comparingColumn, setComparingColumn] = useState<number>();
-  const [sortingSpeed, setSortingSpeed] = useState<number>(100);
+  const [sortingSpeed, setSortingSpeed] = useState<number>(BASE_SORTING_SPEED);
 
   const pullSortingSpeed = (sortingSpeed: number) => {
-    setSortingSpeed(sortingSpeed * 5);
+    setSortingSpeed(sortingSpeed * SORTING_MULTIPLIER);
   };
 
   const bubbleSort = async (arr: number[]) => {
