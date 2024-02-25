@@ -4,7 +4,7 @@ export default function Vertex({
   positionX,
   positionY,
 }: {
-  vertexNumber: number;
+  vertexNumber?: number;
   positionX: number;
   positionY: number;
 }) {

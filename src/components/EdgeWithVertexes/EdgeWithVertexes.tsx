@@ -1,11 +1,10 @@
 import Line from "../../../public/svg/Line";
 import Vertex from "../RandomGraph/Vertex";
-import styles from "./EdgeWithVertexes.module.css";
 
 export default function EdgeWithVertexes({
-  hasTopVertex = true,
+  hasTopVertex = false,
   topVertexValue,
-  hasBottomVertex = false,
+  hasBottomVertex = true,
   bottomVertexValue,
   edgeColor,
   topX,
@@ -30,7 +29,7 @@ export default function EdgeWithVertexes({
           <Vertex
             positionX={topX}
             positionY={topY}
-            vertexNumber={topVertexValue ? topVertexValue : 1}
+            vertexNumber={topVertexValue}
           />
         </div>
       ) : null}
@@ -46,7 +45,7 @@ export default function EdgeWithVertexes({
           <Vertex
             positionX={bottomX}
             positionY={bottomY}
-            vertexNumber={bottomVertexValue ? bottomVertexValue : 0}
+            vertexNumber={bottomVertexValue}
           />
         </div>
       ) : null}
