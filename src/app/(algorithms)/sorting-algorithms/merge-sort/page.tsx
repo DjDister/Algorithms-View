@@ -17,6 +17,7 @@ export default function Page() {
   const [leftComparing, setLeftComparing] = useState<number[]>([]);
   const [rightComparing, setRightComparing] = useState<number[]>([]);
   const [sortingSpeed, setSortingSpeed] = useState<number>(BASE_SORTING_SPEED);
+  const [isAbleToSort, setIsAbleToSort] = useState<boolean>(true);
 
   const removeItemsAndSetThemSorted = (sorted: number[]) => {
     setChartData((prev) => {
@@ -27,6 +28,7 @@ export default function Page() {
 
   const mergeSort = async (array: number[]): Promise<number[]> => {
     if (array.length <= 1) return array;
+    setIsAbleToSort(() => false);
 
     const mid = Math.floor(array.length / 2);
     const left: number[] = await mergeSort(array.slice(0, mid));
@@ -37,10 +39,12 @@ export default function Page() {
       setTimeout(resolve, BASE_SORTING_TIMEOUT / sortingSpeed)
     );
 
+    setIsAbleToSort(true);
     return mergeResult;
   };
 
   const merge = async (left: number[], right: number[]) => {
+    setIsAbleToSort(() => false);
     const result = [];
     let i = 0,
       j = 0;
@@ -79,6 +83,7 @@ export default function Page() {
   };
 
   const handleSort = async () => {
+    console.log(`sort`);
     await mergeSort(chartData);
   };
 
@@ -87,7 +92,7 @@ export default function Page() {
       sorrtingArray={chartData}
       onRandomize={handleRandomize}
       onSort={handleSort}
-      isAbleToSort={true}
+      isAbleToSort={isAbleToSort}
       chosenColumn={leftCompared ? chartData.indexOf(leftCompared) : undefined}
       comparingColumn={
         rightCompared ? chartData.indexOf(rightCompared) : undefined
