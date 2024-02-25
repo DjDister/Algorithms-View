@@ -1,0 +1,39 @@
+
+.arrayContainer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.arrayElement{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 12px;
+    width: 24px;
+    height: 24px;
+    background-color: #f0f0f0;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+.elemContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    height: 80px;
+
+}
+
+.bar {
+    color:"red";
+    transition: margin 0.5s;
+
+  }
+  
+  .bar.animate {
+    transform: translateY(-20px);
+  }
