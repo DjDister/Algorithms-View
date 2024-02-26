@@ -12,7 +12,7 @@ function GraphLayout({
   title,
   onRandomize,
   onSort,
-  isAbleToSort,
+  isAbleToSort = true,
   chosenColumn,
   comparingColumn,
   sortingSpeedFunction,
@@ -22,12 +22,14 @@ function GraphLayout({
   indexesToStyle,
   isCustomStyleActivated,
   onTitleClick,
+  otherUtils,
+  children,
 }: {
   sorrtingArray: number[];
   title: string;
   onRandomize: () => void;
   onSort: () => void;
-  isAbleToSort: boolean;
+  isAbleToSort?: boolean;
   chosenColumn?: number | number[];
   comparingColumn?: number;
   sortingSpeedFunction: (sortingSpeed: number) => void;
@@ -37,6 +39,8 @@ function GraphLayout({
   indexesToStyle?: { indexes: number[]; style: React.CSSProperties }[];
   isCustomStyleActivated?: boolean;
   onTitleClick?: () => void;
+  otherUtils?: React.ReactNode;
+  children?: React.ReactNode;
 }) {
   return (
     <div className={styles.GraphLayout}>
@@ -60,29 +64,32 @@ function GraphLayout({
             className={styles.backgroundImage}
           />
         )}
-        <div className={styles.graph}>
-          {sorrtingArray.map((number, index) => (
-            <div
-              key={number}
-              className={styles.column}
-              style={{
-                height: `${number * 4}px`,
+        {children ?? (
+          <div className={styles.graph}>
+            {sorrtingArray.map((number, index) => (
+              <div
+                key={number}
+                className={styles.column}
+                style={{
+                  height: `${number * 4}px`,
 
-                color: isCustomStyleActivated ? customTextColor : "#aca9bb",
-                ...(indexesToStyle?.find((item) => item.indexes.includes(index))
-                  ?.style || {}),
-              }}
-            >
-              {index === chosenColumn || index === comparingColumn ? (
-                <div className={styles.arrowDownColumn}>
-                  <ArrowDown color={arrowColor} />
-                </div>
-              ) : null}
+                  color: isCustomStyleActivated ? customTextColor : "#aca9bb",
+                  ...(indexesToStyle?.find((item) =>
+                    item.indexes.includes(index)
+                  )?.style || {}),
+                }}
+              >
+                {index === chosenColumn || index === comparingColumn ? (
+                  <div className={styles.arrowDownColumn}>
+                    <ArrowDown color={arrowColor} />
+                  </div>
+                ) : null}
 
-              {number !== 0 ? number : null}
-            </div>
-          ))}
-        </div>
+                {number !== 0 ? number : null}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       <div className={styles.buttonSection}>
         <Button
@@ -96,6 +103,7 @@ function GraphLayout({
           Sort
         </Button>
         <RangeInput sliderValueFunction={sortingSpeedFunction} />
+        {otherUtils}
       </div>
     </div>
   );
