@@ -1,0 +1,9 @@
+.bar {
+    color:"red";
+    transition: margin 0.5s;
+    min-width: 24px;
+  }
+  
+  .bar.animate {
+    transform: translateY(-20px);
+  }

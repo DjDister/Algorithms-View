@@ -5,17 +5,19 @@ function ArrayVisualization({
   data,
   indexesToHighlite,
   indexesToStyle,
+  elemStyle,
 }: {
   data: number[];
   indexesToHighlite?: number[];
   indexesToStyle?: { indexes: number[]; style: React.CSSProperties };
+  elemStyle?: string;
 }) {
   return (
     <div className={styles.arrayContainer}>
       {data.map((value, index) => (
         <div
           key={index}
-          className={`${styles.elemContainer} ${styles.bar}`}
+          className={`${styles.elemContainer} ${elemStyle}`}
           style={{
             ...(indexesToStyle?.indexes.includes(index)
               ? indexesToStyle.style

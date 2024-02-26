@@ -3,21 +3,29 @@
 import ArrayVisualization from "@/components/ArrayVisualization/ArrayVisualization";
 import GraphLayout from "@/components/GraphLayout/GraphLayout";
 import { useState } from "react";
+import styles from "./styles.module.css";
+import Input from "@/components/Input/Input";
+import {
+  BASE_SORTING_SPEED,
+  BASE_SORTING_TIMEOUT,
+  SORTING_MULTIPLIER,
+} from "@/utils/consts/sorting.consts";
 
 const INITIAL_HOW_MANY_TO_GENERATE = 10;
 
-const createFirstFibbonaciArray = (length: number) => {
+const createFirstFibbonaciArray = (length: number): number[] => {
   return [0, 1, ...Array(length - 2).fill(0)];
 };
 
 export default function Page() {
-  const [howManyToGenerate, setHowManyToGenerate] = useState<number>(
+  const [howManyToGenerate, setHowManyToGenerate] = useState(
     INITIAL_HOW_MANY_TO_GENERATE
   );
-  const [fibbonaciArray, setFibbonaciArray] = useState<number[]>(
+  const [fibbonaciArray, setFibbonaciArray] = useState(
     createFirstFibbonaciArray(howManyToGenerate)
   );
-  const [insertingValueIndex, setInsertingValueIndex] = useState<number>(1);
+  const [insertingValueIndex, setInsertingValueIndex] = useState(1);
+  const [generatingSpeed, setGeneratingSpeed] = useState(BASE_SORTING_SPEED);
 
   const generateFibbonaciArray = async (length: number) => {
     const fibbonaciArrayCopy = [...fibbonaciArray];
@@ -27,31 +35,39 @@ export default function Page() {
       fibbonaciArrayCopy[i] = valueToInsert;
       setInsertingValueIndex(() => i);
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) =>
+        setTimeout(resolve, BASE_SORTING_TIMEOUT / generatingSpeed)
+      );
       setFibbonaciArray(() => [...fibbonaciArrayCopy]);
-      console.log("fibbonaciArrayCopy", fibbonaciArrayCopy);
     }
   };
-  console.log(fibbonaciArray);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInsertingValueIndex(1);
 
-    setHowManyToGenerate(Number(e.target.value));
-    setFibbonaciArray([0, 1, ...Array(Number(e.target.value) - 2).fill(0)]);
+    setHowManyToGenerate(e.target.valueAsNumber);
+    setFibbonaciArray(createFirstFibbonaciArray(e.target.valueAsNumber));
   };
+
+  const handleSpeedChange = (sortingSpeed: number) => {
+    setGeneratingSpeed(sortingSpeed * SORTING_MULTIPLIER);
+  };
+
   return (
     <GraphLayout
       title="Fibbonaci Sequence"
       onRandomize={() => generateFibbonaciArray(howManyToGenerate)}
-      onSort={() => {}}
+      onSort={() => generateFibbonaciArray(howManyToGenerate)}
       sorrtingArray={[]}
-      sortingSpeedFunction={() => {}}
+      sortingSpeedFunction={handleSpeedChange}
       otherUtils={
-        <input
-          type="number"
+        <Input
+          label="Amount"
           value={howManyToGenerate}
           onChange={handleInputChange}
+          type="number"
+          min={2}
+          max={40}
         />
       }
     >
@@ -62,6 +78,7 @@ export default function Page() {
           indexes: [insertingValueIndex - 1, insertingValueIndex - 2],
           style: { marginBottom: 24 },
         }}
+        elemStyle={styles.elementStyle}
       />
     </GraphLayout>
   );
