@@ -1,70 +1,80 @@
 .GraphLayout {
-    position: absolute;
-    width: calc(100% - 250px);
-    height: 100vh;
-    top: 0;
-    right: 0;
-    background-color: #f2ecff;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .title,
-  .graphSection,
-  .graph,
-  .column,
-  .buttonSection {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-  .title {
-    height: 10%;
-    max-height: 100px;
-    background-color: #393939;
-    color: #a6a6a6;
-    font-weight: bold;
-    font-size: 2rem;
-  }
-  
-  .titleName {
-    cursor: pointer;
-  }
-  
-  .graphSection {
-    height: 75%;
-    background-color: #aca9bb;
-    background-color: #9593a3;
-  
-    border-radius: 0px 0px 15px 15px;
-  }
-  
-  .graph {
-    width: 90%;
-    height: 90%;
-    gap: 3%;
-    align-items: flex-end;
-  }
-  
-  .column {
-    background-color: rgb(243, 239, 239);
-    width: 4%;
-    border-radius: 5px 5px 0px 0px;
-    font-weight: bold;
-    color: #aca9bb;
-    position: relative;
-  }
-  
-  .arrowDownColumn {
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .buttonSection {
-    height: 15%;
-    gap: 15px;
-    background-color: #f2ecff;
-  }
+  position: absolute;
+  width: calc(100% - 250px);
+  height: 100vh;
+  top: 0;
+  right: 0;
+  background-color: #f2ecff;
+  display: flex;
+  flex-direction: column;
+}
+
+.title,
+.graphSection,
+.graph,
+.column,
+.buttonSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  z-index: 2;
+}
+.title {
+  height: 10%;
+  max-height: 100px;
+  background-color: #393939;
+  color: #a6a6a6;
+  font-weight: bold;
+  font-size: 2rem;
+  z-index: 2;
+  position: relative;
+}
+
+
+.graphSection {
+  height: 75%;
+  background-color: #aca9bb;
+  background-color: #9593a3;
+
+  border-radius: 0px 0px 15px 15px;
+  position: relative;
+}
+
+.graph {
+  width: 90%;
+  height: 90%;
+  gap: 3%;
+  align-items: flex-end;
+}
+
+.column {
+  background-color: rgb(243, 239, 239);
+  width: 4%;
+  border-radius: 5px 5px 0px 0px;
+  font-weight: bold;
+  color: #aca9bb;
+  position: relative;
+  max-height: "90%";
+  background-color: "rgb(243, 239, 239)";
+}
+
+.arrowDownColumn {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.buttonSection {
+  height: 15%;
+  gap: 15px;
+  background-color: #f2ecff;
+}
+
+.backgroundImage{
+  z-index: -1;
+  pointer-events: none;
+  object-fit: cover;
+  object-position: center;
+}

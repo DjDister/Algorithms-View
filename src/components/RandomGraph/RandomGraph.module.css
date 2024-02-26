@@ -1,0 +1,11 @@
+.randomGraphBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: calc(100% - 250px);
+  overflow-y: hidden;
+}

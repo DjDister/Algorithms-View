@@ -45,13 +45,13 @@ function SideBarItem({
       </div>
       {isItemOpened ? (
         <div className={styles.listOfElements}>
-          {elementsArray.map((element) => (
+          {elementsArray.map((element, index) => (
             <Link
               key={element.name}
               href={"/" + prefixPath + "/" + element.path}
               className={styles.singleLink}
             >
-              {element.name}
+              {index + 1} . {element.name}
             </Link>
           ))}
         </div>

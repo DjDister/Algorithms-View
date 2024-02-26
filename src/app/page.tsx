@@ -1,3 +1,8 @@
+import RandomGraph from "../components/RandomGraph/RandomGraph";
 export default function Home() {
-  return <div></div>;
+  return (
+    <div>
+      <RandomGraph />
+    </div>
+  );
 }
