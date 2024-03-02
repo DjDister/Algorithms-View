@@ -106,6 +106,7 @@ export default function Page() {
       sortingSpeedFunction={handleSortingSpeed}
       sortLabel="Search"
       shuffleLabel="Randomize"
+      inputLabel="Adjust Searching Speed"
     />
   );
 }

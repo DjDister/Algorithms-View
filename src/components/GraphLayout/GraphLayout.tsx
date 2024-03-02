@@ -24,6 +24,7 @@ function GraphLayout({
   otherUtils,
   shuffleLabel = "Shuffle",
   sortLabel = "Sort",
+  inputLabel = "Adjust Sorting Speed",
   children,
 }: {
   sorrtingArray: number[];
@@ -44,6 +45,7 @@ function GraphLayout({
   children?: React.ReactNode;
   shuffleLabel?: string;
   sortLabel?: string;
+  inputLabel?: string;
 }) {
   return (
     <div className={styles.GraphLayout}>
@@ -105,7 +107,10 @@ function GraphLayout({
         <Button disabled={!isAbleToSort} onClick={onSort} icon={<SortSvg />}>
           {sortLabel}
         </Button>
-        <RangeInput sliderValueFunction={sortingSpeedFunction} />
+        <RangeInput
+          sliderValueFunction={sortingSpeedFunction}
+          inputLabel={inputLabel}
+        />
         {otherUtils}
       </div>
     </div>
