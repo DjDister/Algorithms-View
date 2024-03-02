@@ -1,0 +1,5 @@
+export const SEARCH_MULTIPLIER = 10;
+
+export const BASE_SEARCH_SPEED = 15 * SEARCH_MULTIPLIER;
+
+export const BASE_SEARCH_TIMEOUT = 150000;

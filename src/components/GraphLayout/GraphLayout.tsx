@@ -22,6 +22,8 @@ function GraphLayout({
   isCustomStyleActivated,
   onTitleClick,
   otherUtils,
+  shuffleLabel = "Shuffle",
+  sortLabel = "Sort",
   children,
 }: {
   sorrtingArray: number[];
@@ -40,6 +42,8 @@ function GraphLayout({
   onTitleClick?: () => void;
   otherUtils?: React.ReactNode;
   children?: React.ReactNode;
+  shuffleLabel?: string;
+  sortLabel?: string;
 }) {
   return (
     <div className={styles.GraphLayout}>
@@ -96,10 +100,10 @@ function GraphLayout({
           onClick={onRandomize}
           icon={<DiceSvg />}
         >
-          Shuffle
+          {shuffleLabel}
         </Button>
         <Button disabled={!isAbleToSort} onClick={onSort} icon={<SortSvg />}>
-          Sort
+          {sortLabel}
         </Button>
         <RangeInput sliderValueFunction={sortingSpeedFunction} />
         {otherUtils}
