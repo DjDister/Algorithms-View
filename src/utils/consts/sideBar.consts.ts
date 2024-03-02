@@ -26,6 +26,10 @@ export const SIDE_BAR_DATA = [
         name: "Linear Search",
         path: "linear-search",
       },
+      {
+        name: "Binary Search",
+        path: "binary-search",
+      },
     ],
   },
 
