@@ -3,8 +3,10 @@ import styles from "./RangeInput.module.css";
 
 function RangeInput({
   sliderValueFunction,
+  inputLabel,
 }: {
   sliderValueFunction: (sliderValue: number) => void;
+  inputLabel: string;
 }) {
   const [sliderValue, setSliderValue] = useState<number>(50);
 
@@ -15,7 +17,7 @@ function RangeInput({
 
   return (
     <div className={styles.inputBox}>
-      <div>Adjust Sorting Speed</div>
+      <div>{inputLabel}</div>
       <input
         type="range"
         min={1}
