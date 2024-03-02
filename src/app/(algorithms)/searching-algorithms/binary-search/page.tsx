@@ -89,7 +89,7 @@ export default function Page() {
       indexesToStyle={[
         {
           indexes:
-            middleIndex && array[middleIndex] === numberToFind
+            middleIndex !== null && array[middleIndex] === numberToFind
               ? [middleIndex]
               : [],
           style: {
